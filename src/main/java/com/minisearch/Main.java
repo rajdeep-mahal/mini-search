@@ -26,6 +26,9 @@ public class Main {
             // Demonstrate the crawler functionality
             demonstrateCrawler();
             
+            // Demonstrate the indexing functionality
+            demonstrateIndexer();
+            
             logger.info("Mini Search Engine demo completed!");
             
         } catch (Exception e) {
