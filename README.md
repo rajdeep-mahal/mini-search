@@ -83,34 +83,17 @@ The application can be configured through:
 
 ## Development Status
 
-🎉 **Project Complete!** 🎉
+🚧 **Under Development** 🚧
 
-This project has been successfully completed with all major components implemented:
+This project is currently in active development. The following components are planned:
 
 - [x] Project structure setup
 - [x] Web crawler implementation
 - [x] Indexer implementation
 - [x] Search engine core
-- [x] Web interface
-- [x] Configuration management
+- [ ] Web interface
+- [ ] Configuration management
 - [x] Testing suite
-
-## Running the Web Interface
-
-To start the web interface:
-
-```bash
-mvn exec:java -Dexec.mainClass="com.minisearch.WebInterfaceRunner"
-```
-
-Then open your browser to: **http://localhost:8080**
-
-The web interface includes:
-- Real-time search functionality
-- Search suggestions and auto-complete
-- RESTful API endpoints
-- Performance statistics
-- Modern, responsive design
 
 ## Contributing
 

@@ -43,7 +43,7 @@ public class HybridSearchEngine implements SearchEngine {
         List<SearchResult> localResults = localSearchEngine.search(query);
         
         // If Gemini is enabled, enhance with AI-generated content
-        if (geminiEnabled && shouldUseGemini(query) && !localResults.isEmpty()) {
+        if (geminiEnabled && shouldUseGemini(query)) {
             try {
                 List<SearchResult> enhancedResults = enhanceWithGemini(query, localResults);
                 logger.info("Search enhanced with Gemini AI content");
@@ -142,7 +142,7 @@ public class HybridSearchEngine implements SearchEngine {
             // Call Gemini API asynchronously with timeout
             CompletableFuture<GeminiResponse> geminiFuture = CompletableFuture
                 .supplyAsync(() -> geminiService.generateContent(query.getQueryText()))
-                .orTimeout(5, TimeUnit.SECONDS);
+                .orTimeout(15, TimeUnit.SECONDS);
             
             GeminiResponse geminiResponse = geminiFuture.get();
             

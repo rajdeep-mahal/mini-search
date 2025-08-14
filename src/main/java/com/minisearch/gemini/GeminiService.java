@@ -20,7 +20,7 @@ import java.util.List;
 public class GeminiService {
     
     private static final Logger logger = LoggerFactory.getLogger(GeminiService.class);
-    private static final String GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent";
+    private static final String GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
     
     private final String apiKey;
     private final HttpClient httpClient;
