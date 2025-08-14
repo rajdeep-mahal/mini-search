@@ -30,14 +30,12 @@ public class SimpleSearchIndexerTest {
         testPage1.setTitle("Java Programming Guide");
         testPage1.setContent("Java is a popular programming language. Java is used for web development and Android apps.");
         testPage1.setDomain("example.com");
-        testPage1.setContentLength(testPage1.getContent().length());
         
         testPage2 = new WebPage();
         testPage2.setUrl("https://example.com/page2");
         testPage2.setTitle("Python Programming Tutorial");
         testPage2.setContent("Python is another programming language. Python is great for data science and machine learning.");
         testPage2.setDomain("example.com");
-        testPage2.setContentLength(testPage2.getContent().length());
     }
     
     @Test
@@ -133,7 +131,6 @@ public class SimpleSearchIndexerTest {
         
         // Update the page content
         testPage1.setContent("Updated Java content with new information.");
-        testPage1.setContentLength(testPage1.getContent().length());
         
         // Update the indexed page
         indexer.updatePage(testPage1);
@@ -199,7 +196,7 @@ public class SimpleSearchIndexerTest {
         
         // Check most common terms
         @SuppressWarnings("unchecked")
-        List<Map.Entry<String, Integer>> commonTerms = (List<Map.Entry<String, Integer>>) stats.get("mostCommonTerms");
+        List<java.util.Map.Entry<String, Integer>> commonTerms = (List<java.util.Map.Entry<String, Integer>>) stats.get("mostCommonTerms");
         assertNotNull(commonTerms);
         assertFalse(commonTerms.isEmpty());
     }
@@ -233,7 +230,6 @@ public class SimpleSearchIndexerTest {
         emptyPage.setTitle("Empty Page");
         emptyPage.setContent("");
         emptyPage.setDomain("example.com");
-        emptyPage.setContentLength(0);
         
         // Index the empty page
         indexer.indexPage(emptyPage);

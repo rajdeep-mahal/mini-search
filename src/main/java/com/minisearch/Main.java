@@ -3,11 +3,14 @@ package com.minisearch;
 import com.minisearch.crawler.SimpleWebCrawler;
 import com.minisearch.crawler.CrawlerConfig;
 import com.minisearch.model.WebPage;
+import com.minisearch.indexer.SimpleSearchIndexer;
+import com.minisearch.indexer.DocumentIndex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.Arrays;
 
 /**
  * Main class for the Mini Search Engine
