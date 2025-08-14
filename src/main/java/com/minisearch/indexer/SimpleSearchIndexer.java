@@ -37,7 +37,7 @@ public class SimpleSearchIndexer implements SearchIndexer {
     
     @Override
     public void indexPage(WebPage webPage) {
-        if (webPage == null || webPage.getUrl() == null) {
+        if (webPage == null || webPage.getUrl() == null || webPage.getUrl().trim().isEmpty()) {
             logger.warn("Cannot index null or invalid web page");
             return;
         }

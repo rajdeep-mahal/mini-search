@@ -88,12 +88,12 @@ The application can be configured through:
 This project is currently in active development. The following components are planned:
 
 - [x] Project structure setup
-- [ ] Web crawler implementation
-- [ ] Indexer implementation
+- [x] Web crawler implementation
+- [x] Indexer implementation
 - [ ] Search engine core
 - [ ] Web interface
 - [ ] Configuration management
-- [ ] Testing suite
+- [x] Testing suite
 
 ## Contributing
 
