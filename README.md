@@ -2,6 +2,8 @@
 
 A mini search engine implementation in Java, inspired by Google's search functionality.
 
+> 📚 **New!** Check out our **[DEVELOPMENT_GUIDE.md](DEVELOPMENT_GUIDE.md)** for a complete step-by-step explanation of how we're building this search engine from scratch!
+
 ## Features
 
 - **Web Crawler**: Automatically discover and index web pages
