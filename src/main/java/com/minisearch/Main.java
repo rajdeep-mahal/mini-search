@@ -5,6 +5,10 @@ import com.minisearch.crawler.CrawlerConfig;
 import com.minisearch.model.WebPage;
 import com.minisearch.indexer.SimpleSearchIndexer;
 import com.minisearch.indexer.DocumentIndex;
+import com.minisearch.search.SimpleSearchEngine;
+import com.minisearch.search.SearchQuery;
+import com.minisearch.search.SearchResult;
+import com.minisearch.search.SearchFilters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,6 +32,9 @@ public class Main {
             
             // Demonstrate the indexing functionality
             demonstrateIndexer();
+            
+            // Demonstrate the search engine functionality
+            demonstrateSearchEngine();
             
             logger.info("Mini Search Engine demo completed!");
             
@@ -277,6 +284,172 @@ public class Main {
             
         } catch (Exception e) {
             logger.error("Error during interactive search", e);
+        }
+    }
+    
+    /**
+     * Demonstrate the search engine functionality
+     */
+    private static void demonstrateSearchEngine() {
+        logger.info("\n=== Search Engine Demo ===");
+        
+        // Create indexer and search engine
+        SimpleSearchIndexer indexer = new SimpleSearchIndexer();
+        SimpleSearchEngine searchEngine = new SimpleSearchEngine(indexer);
+        
+        try {
+            // Demo 1: Index sample pages for search
+            logger.info("\n--- Demo 1: Index Sample Pages for Search ---");
+            
+            WebPage samplePage1 = new WebPage("https://example.com/java");
+            samplePage1.setTitle("Java Programming Guide");
+            samplePage1.setContent("Java is a popular programming language used for web development, Android apps, and enterprise software. Java provides object-oriented programming features and platform independence.");
+            samplePage1.setDomain("example.com");
+            
+            WebPage samplePage2 = new WebPage("https://example.com/python");
+            samplePage2.setTitle("Python Tutorial");
+            samplePage2.setContent("Python is a versatile programming language great for data science, machine learning, web development, and automation. Python has simple syntax and extensive libraries.");
+            samplePage2.setDomain("example.com");
+            
+            WebPage samplePage3 = new WebPage("https://example.com/javascript");
+            samplePage3.setTitle("JavaScript Basics");
+            samplePage3.setContent("JavaScript is the language of the web. It runs in browsers and enables interactive web pages. JavaScript is essential for modern web development.");
+            samplePage3.setDomain("example.com");
+            
+            // Index the pages
+            indexer.indexPage(samplePage1);
+            indexer.indexPage(samplePage2);
+            indexer.indexPage(samplePage3);
+            
+            logger.info("Indexed {} pages for search", indexer.getIndexSize());
+            
+            // Demo 2: Basic search functionality
+            logger.info("\n--- Demo 2: Basic Search Functionality ---");
+            
+            // Search for "programming"
+            SearchQuery query1 = new SearchQuery("programming");
+            List<SearchResult> results1 = searchEngine.search(query1);
+            logger.info("Search for 'programming': {} results", results1.size());
+            for (SearchResult result : results1) {
+                logger.info("  - {}: {} (score: {})", result.getTitle(), result.getUrl(), result.getFormattedRelevanceScore());
+            }
+            
+            // Demo 3: Advanced search queries
+            logger.info("\n--- Demo 3: Advanced Search Queries ---");
+            
+            // Exact phrase search
+            SearchQuery phraseQuery = SearchQuery.exactPhrase("web development");
+            List<SearchResult> phraseResults = searchEngine.search(phraseQuery);
+            logger.info("Exact phrase 'web development': {} results", phraseResults.size());
+            
+            // All terms search (AND)
+            SearchQuery allTermsQuery = SearchQuery.allTerms("java", "development");
+            List<SearchResult> allTermsResults = searchEngine.search(allTermsQuery);
+            logger.info("All terms 'Java' AND 'development': {} results", allTermsResults.size());
+            
+            // Any terms search (OR)
+            SearchQuery anyTermsQuery = SearchQuery.anyTerms("python", "javascript");
+            List<SearchResult> anyTermsResults = searchEngine.search(anyTermsQuery);
+            logger.info("Any terms 'Python' OR 'JavaScript': {} results", anyTermsResults.size());
+            
+            // Demo 4: Search with filters
+            logger.info("\n--- Demo 4: Search with Filters ---");
+            
+            SearchFilters filters = new SearchFilters();
+            filters.addDomain("example.com");
+            filters.setMinContentLength(100);
+            
+            SearchQuery filteredQuery = new SearchQuery("language");
+            List<SearchResult> filteredResults = searchEngine.search(filteredQuery, filters);
+            logger.info("Filtered search for 'language': {} results", filteredResults.size());
+            logger.info("Active filters: {}", filters.getFilterSummary());
+            
+            // Demo 5: Search suggestions and related terms
+            logger.info("\n--- Demo 5: Search Suggestions & Related Terms ---");
+            
+            List<String> suggestions = searchEngine.getSuggestions("prog");
+            logger.info("Search suggestions for 'prog': {}", suggestions);
+            
+            List<String> relatedTerms = searchEngine.getRelatedTerms("java", 5);
+            logger.info("Related terms for 'Java': {}", relatedTerms);
+            
+            // Demo 6: Search statistics
+            logger.info("\n--- Demo 6: Search Statistics ---");
+            
+            var searchStats = searchEngine.getSearchStats();
+            logger.info("Search statistics: {}", searchStats.getFormattedStats());
+            
+            List<String> popularTerms = searchEngine.getPopularSearchTerms(5);
+            logger.info("Popular search terms: {}", popularTerms);
+            
+            // Demo 7: Pagination
+            logger.info("\n--- Demo 7: Search Pagination ---");
+            
+            SearchQuery paginationQuery = new SearchQuery("development");
+            paginationQuery.setMaxResults(2);
+            
+            var paginatedResults = searchEngine.searchWithPagination(paginationQuery, 0, 2);
+            logger.info("Paginated results: {}", paginatedResults.getPageInfo());
+            logger.info("Navigation: {}", paginatedResults.getNavigationInfo());
+            
+            // Demo 8: Interactive search engine
+            logger.info("\n--- Demo 8: Interactive Search Engine ---");
+            interactiveSearchEngine(searchEngine);
+            
+        } catch (Exception e) {
+            logger.error("Error during search engine demo", e);
+        }
+    }
+    
+    /**
+     * Interactive search engine demo
+     */
+    private static void interactiveSearchEngine(SimpleSearchEngine searchEngine) {
+        Scanner scanner = new Scanner(System.in);
+        
+        try {
+            logger.info("Enter search query (or 'quit' to exit):");
+            String input = scanner.nextLine().trim();
+            
+            if ("quit".equalsIgnoreCase(input)) {
+                logger.info("Interactive search engine demo ended");
+                return;
+            }
+            
+            if (!input.isEmpty()) {
+                logger.info("Searching for: {}", input);
+                
+                // Create search query
+                SearchQuery query = new SearchQuery(input);
+                query.setMaxResults(5);
+                
+                // Perform search
+                List<SearchResult> results = searchEngine.search(query);
+                
+                if (results.isEmpty()) {
+                    logger.info("No results found for: {}", input);
+                    
+                    // Try to get suggestions
+                    List<String> suggestions = searchEngine.getSuggestions(input);
+                    if (!suggestions.isEmpty()) {
+                        logger.info("Try these suggestions: {}", suggestions);
+                    }
+                } else {
+                    logger.info("Found {} results:", results.size());
+                    for (int i = 0; i < results.size(); i++) {
+                        SearchResult result = results.get(i);
+                        logger.info("  {}. {} (score: {})", i + 1, result.getTitle(), result.getFormattedRelevanceScore());
+                        logger.info("     URL: {}", result.getUrl());
+                        if (result.getSnippet() != null) {
+                            logger.info("     Snippet: {}", result.getSnippet());
+                        }
+                        logger.info("     Matched terms: {}", result.getMatchedTerms());
+                    }
+                }
+            }
+            
+        } catch (Exception e) {
+            logger.error("Error during interactive search engine", e);
         }
     }
 }
