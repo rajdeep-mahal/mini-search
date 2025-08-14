@@ -53,10 +53,11 @@ public class SimpleSearchEngine implements SearchEngine {
             logger.info("Executing search query: {}", query.getQueryText());
             
             List<String> searchTerms = query.getAllSearchTerms();
-            List<DocumentIndex> documents;
             
             // Execute search based on query type
             List<SearchResult> searchResults;
+            List<DocumentIndex> documents = new ArrayList<>();
+            
             switch (query.getQueryType()) {
                 case EXACT_MATCH:
                     searchResults = searchPhrase(query.getQueryText());

@@ -90,7 +90,7 @@ This project is currently in active development. The following components are pl
 - [x] Project structure setup
 - [x] Web crawler implementation
 - [x] Indexer implementation
-- [ ] Search engine core
+- [x] Search engine core
 - [ ] Web interface
 - [ ] Configuration management
 - [x] Testing suite
