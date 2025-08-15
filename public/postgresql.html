@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PostgreSQL - Advanced Open Source Database</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .content-page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        h2 {
+            color: #4a5568;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 30px 0 15px 0;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+        }
+        
+        p {
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+            color: #4a5568;
+        }
+        
+        ul, ol {
+            margin: 16px 0 16px 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            color: #4a5568;
+        }
+        
+        strong {
+            color: #2d3748;
+            font-weight: 600;
+        }
+        
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #2d3748;
+        }
+        
+        a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .content-page {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content-page">
+        <a href="index.html" class="back-btn">← Back to Search</a>
+        
+        <h1>PostgreSQL - Advanced Open Source Database</h1>
+        
+        <p>PostgreSQL is a powerful, open-source object-relational database system with over 30 years of active development. It has earned a strong reputation for reliability, feature robustness, and performance. PostgreSQL runs on all major operating systems and has been ACID compliant since 2001.</p>
+        
+        <h2>Key Features</h2>
+        <ul>
+            <li><strong>ACID Compliance:</strong> Full transaction support with data integrity</li>
+            <li><strong>Advanced Data Types:</strong> JSON, XML, arrays, geometric, and custom types</li>
+            <li><strong>Extensibility:</strong> Custom functions, operators, and data types</li>
+            <li><strong>Concurrency:</strong> Multi-version concurrency control (MVCC)</li>
+            <li><strong>Replication:</strong> Built-in streaming and logical replication</li>
+        </ul>
+        
+        <h2>Installation and Setup</h2>
+        <div class="code-block">
+-- On Ubuntu/Debian
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+
+-- On macOS with Homebrew
+brew install postgresql
+brew services start postgresql
+
+-- On Windows
+-- Download installer from postgresql.org
+
+-- Connect to PostgreSQL
+psql -U postgres -h localhost
+
+-- Create a new database
+CREATE DATABASE myapp;
+
+-- Create a new user
+CREATE USER myuser WITH PASSWORD 'mypassword';
+GRANT ALL PRIVILEGES ON DATABASE myapp TO myuser;
+        </div>
+        
+        <h2>Advanced Data Types</h2>
+        <div class="code-block">
+-- JSON and JSONB
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    profile JSONB,
+    metadata JSON
+);
+
+INSERT INTO users (name, profile, metadata) VALUES (
+    'John Doe',
+    '{"age": 30, "city": "New York", "skills": ["SQL", "Python"]}',
+    '{"last_login": "2023-12-01", "preferences": {"theme": "dark"}}'
+);
+
+-- Query JSON data
+SELECT name, profile->>'city' as city
+FROM users
+WHERE profile->>'age'::int > 25;
+
+-- Arrays
+CREATE TABLE products (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    tags TEXT[],
+    prices NUMERIC(10,2)[]
+);
+
+INSERT INTO products (name, tags, prices) VALUES (
+    'Laptop',
+    ARRAY['electronics', 'computer', 'portable'],
+    ARRAY[999.99, 1299.99, 1599.99]
+);
+
+-- Query arrays
+SELECT name FROM products WHERE 'electronics' = ANY(tags);
+        </div>
+        
+        <h2>Advanced SQL Features</h2>
+        <div class="code-block">
+-- Common Table Expressions (CTEs)
+WITH RECURSIVE category_tree AS (
+    -- Base case
+    SELECT id, name, parent_id, 1 as level
+    FROM categories
+    WHERE parent_id IS NULL
+    
+    UNION ALL
+    
+    -- Recursive case
+    SELECT c.id, c.name, c.parent_id, ct.level + 1
+    FROM categories c
+    JOIN category_tree ct ON c.parent_id = ct.id
+)
+SELECT * FROM category_tree;
+
+-- Window Functions
+SELECT 
+    name,
+    department,
+    salary,
+    AVG(salary) OVER (PARTITION BY department) as dept_avg,
+    ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC) as dept_rank
+FROM employees;
+
+-- Full-Text Search
+CREATE TABLE articles (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(200),
+    content TEXT
+);
+
+-- Create full-text search index
+CREATE INDEX articles_search_idx ON articles 
+USING GIN(to_tsvector('english', title || ' ' || content));
+
+-- Search with ranking
+SELECT title, ts_rank(to_tsvector('english', title || ' ' || content), query) as rank
+FROM articles, to_tsquery('english', 'database & performance') query
+WHERE to_tsvector('english', title || ' ' || content) @@ query
+ORDER BY rank DESC;
+        </div>
+        
+        <h2>Performance Optimization</h2>
+        <div class="code-block">
+-- Creating indexes
+CREATE INDEX idx_users_email ON users(email);
+CREATE INDEX idx_orders_date ON orders(order_date);
+CREATE INDEX idx_products_category ON products(category_id);
+
+-- Partial indexes
+CREATE INDEX idx_active_users ON users(email) WHERE active = true;
+
+-- Composite indexes
+CREATE INDEX idx_orders_user_date ON orders(user_id, order_date);
+
+-- Explain plan analysis
+EXPLAIN (ANALYZE, BUFFERS) 
+SELECT * FROM orders o
+JOIN users u ON o.user_id = u.id
+WHERE o.order_date > '2023-01-01'
+AND u.active = true;
+
+-- Table partitioning
+CREATE TABLE orders (
+    id SERIAL,
+    user_id INTEGER,
+    order_date DATE,
+    amount NUMERIC(10,2)
+) PARTITION BY RANGE (order_date);
+
+CREATE TABLE orders_2023 PARTITION OF orders
+FOR VALUES FROM ('2023-01-01') TO ('2024-01-01');
+
+CREATE TABLE orders_2024 PARTITION OF orders
+FOR VALUES FROM ('2024-01-01') TO ('2025-01-01');
+        </div>
+        
+        <h2>Backup and Recovery</h2>
+        <div class="code-block">
+-- Logical backup with pg_dump
+pg_dump -U username -d database_name > backup.sql
+
+-- Restore from backup
+psql -U username -d database_name < backup.sql
+
+-- Physical backup with pg_basebackup
+pg_basebackup -D /backup/path -Ft -z -P
+
+-- Point-in-time recovery
+-- Edit postgresql.conf
+recovery_target_time = '2023-12-01 10:00:00'
+recovery_target_action = 'promote'
+
+-- Continuous archiving
+-- In postgresql.conf
+wal_level = replica
+archive_mode = on
+archive_command = 'cp %p /archive/path/%f'
+        </div>
+        
+        <h2>Replication and High Availability</h2>
+        <div class="code-block">
+-- Streaming replication setup
+-- Primary server (postgresql.conf)
+wal_level = replica
+max_wal_senders = 3
+max_replication_slots = 3
+
+-- Primary server (pg_hba.conf)
+host replication replicator 192.168.1.0/24 md5
+
+-- Standby server (recovery.conf)
+standby_mode = 'on'
+primary_conninfo = 'host=192.168.1.10 port=5432 user=replicator password=secret'
+restore_command = 'cp /archive/path/%f %p'
+
+-- Logical replication
+-- Create publication
+CREATE PUBLICATION my_pub FOR TABLE users, orders;
+
+-- Create subscription
+CREATE SUBSCRIPTION my_sub
+CONNECTION 'host=192.168.1.20 port=5432 dbname=mydb user=myuser password=secret'
+PUBLICATION my_pub;
+        </div>
+        
+        <h2>Getting Started</h2>
+        <p>To start with PostgreSQL:</p>
+        <ol>
+            <li>Download and install PostgreSQL from <a href="https://postgresql.org" target="_blank">postgresql.org</a></li>
+            <li>Learn basic SQL commands and PostgreSQL-specific features</li>
+            <li>Practice with advanced data types (JSON, arrays)</li>
+            <li>Understand performance optimization and indexing</li>
+            <li>Explore replication and high availability features</li>
+        </ol>
+        
+        <h2>Use Cases</h2>
+        <ul>
+            <li><strong>Web Applications:</strong> High-traffic websites and APIs</li>
+            <li><strong>Data Warehousing:</strong> Business intelligence and analytics</li>
+            <li><strong>Geographic Information Systems:</strong> Spatial data and mapping</li>
+            <li><strong>Financial Systems:</strong> Banking, trading, and accounting</li>
+            <li><strong>Scientific Applications:</strong> Research data and simulations</li>
+        </ul>
+        
+        <h2>Best Practices</h2>
+        <ul>
+            <li>Always use parameterized queries to prevent SQL injection</li>
+            <li>Create appropriate indexes based on query patterns</li>
+            <li>Use transactions for data consistency</li>
+            <li>Regularly update statistics with ANALYZE</li>
+            <li>Monitor and tune configuration parameters</li>
+        </ul>
+    </div>
+</body>
+</html>

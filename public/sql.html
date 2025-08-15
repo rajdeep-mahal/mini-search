@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL - Structured Query Language</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .content-page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        h2 {
+            color: #4a5568;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 30px 0 15px 0;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+        }
+        
+        p {
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+            color: #4a5568;
+        }
+        
+        ul, ol {
+            margin: 16px 0 16px 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            color: #4a5568;
+        }
+        
+        strong {
+            color: #2d3748;
+            font-weight: 600;
+        }
+        
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #2d3748;
+        }
+        
+        a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .content-page {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content-page">
+        <a href="index.html" class="back-btn">← Back to Search</a>
+        
+        <h1>SQL - Structured Query Language</h1>
+        
+        <p>SQL (Structured Query Language) is a standard language for storing, manipulating, and retrieving data in relational database management systems. It is used by database administrators, developers, and data analysts to interact with databases and perform various operations on data.</p>
+        
+        <h2>Key Features</h2>
+        <ul>
+            <li><strong>Data Definition:</strong> Create, modify, and delete database objects</li>
+            <li><strong>Data Manipulation:</strong> Insert, update, delete, and query data</li>
+            <li><strong>Data Control:</strong> Manage access permissions and security</li>
+            <li><strong>Transaction Control:</strong> Ensure data consistency and integrity</li>
+            <li><strong>Portable:</strong> Works across different database systems</li>
+        </ul>
+        
+        <h2>Basic SQL Commands</h2>
+        <div class="code-block">
+-- Creating a table
+CREATE TABLE employees (
+    id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    email VARCHAR(100) UNIQUE,
+    hire_date DATE,
+    salary DECIMAL(10,2)
+);
+
+-- Inserting data
+INSERT INTO employees (id, first_name, last_name, email, hire_date, salary)
+VALUES (1, 'John', 'Doe', 'john.doe@company.com', '2023-01-15', 75000.00);
+
+-- Querying data
+SELECT first_name, last_name, salary 
+FROM employees 
+WHERE salary > 50000;
+
+-- Updating data
+UPDATE employees 
+SET salary = 80000.00 
+WHERE id = 1;
+
+-- Deleting data
+DELETE FROM employees WHERE id = 1;
+        </div>
+        
+        <h2>SELECT Statements</h2>
+        <div class="code-block">
+-- Basic SELECT
+SELECT * FROM employees;
+
+-- Selecting specific columns
+SELECT first_name, last_name, email FROM employees;
+
+-- Filtering with WHERE
+SELECT * FROM employees WHERE salary > 60000;
+
+-- Sorting with ORDER BY
+SELECT first_name, last_name, salary 
+FROM employees 
+ORDER BY salary DESC;
+
+-- Limiting results
+SELECT * FROM employees LIMIT 10;
+
+-- Using aliases
+SELECT 
+    first_name AS "First Name",
+    last_name AS "Last Name",
+    salary AS "Annual Salary"
+FROM employees;
+        </div>
+        
+        <h2>Joins</h2>
+        <div class="code-block">
+-- INNER JOIN
+SELECT 
+    e.first_name,
+    e.last_name,
+    d.department_name
+FROM employees e
+INNER JOIN departments d ON e.department_id = d.id;
+
+-- LEFT JOIN
+SELECT 
+    e.first_name,
+    e.last_name,
+    d.department_name
+FROM employees e
+LEFT JOIN departments d ON e.department_id = d.id;
+
+-- RIGHT JOIN
+SELECT 
+    e.first_name,
+    e.last_name,
+    d.department_name
+FROM employees e
+RIGHT JOIN departments d ON e.department_id = d.id;
+
+-- FULL OUTER JOIN
+SELECT 
+    e.first_name,
+    e.last_name,
+    d.department_name
+FROM employees e
+FULL OUTER JOIN departments d ON e.department_id = d.id;
+        </div>
+        
+        <h2>Aggregate Functions</h2>
+        <div class="code-block">
+-- Counting records
+SELECT COUNT(*) FROM employees;
+
+-- Average salary
+SELECT AVG(salary) FROM employees;
+
+-- Maximum and minimum salary
+SELECT MAX(salary), MIN(salary) FROM employees;
+
+-- Sum of salaries
+SELECT SUM(salary) FROM employees;
+
+-- Grouping data
+SELECT 
+    department_id,
+    COUNT(*) as employee_count,
+    AVG(salary) as avg_salary
+FROM employees
+GROUP BY department_id
+HAVING COUNT(*) > 5;
+        </div>
+        
+        <h2>Subqueries</h2>
+        <div class="code-block">
+-- Subquery in WHERE clause
+SELECT first_name, last_name, salary
+FROM employees
+WHERE salary > (SELECT AVG(salary) FROM employees);
+
+-- Subquery in FROM clause
+SELECT dept_name, avg_salary
+FROM (
+    SELECT 
+        d.department_name as dept_name,
+        AVG(e.salary) as avg_salary
+    FROM employees e
+    JOIN departments d ON e.department_id = d.id
+    GROUP BY d.department_name
+) AS dept_stats;
+
+-- Subquery in SELECT clause
+SELECT 
+    first_name,
+    last_name,
+    salary,
+    (SELECT AVG(salary) FROM employees) as company_avg
+FROM employees;
+        </div>
+        
+        <h2>Advanced SQL Features</h2>
+        <div class="code-block">
+-- Common Table Expression (CTE)
+WITH high_earners AS (
+    SELECT * FROM employees WHERE salary > 100000
+)
+SELECT * FROM high_earners;
+
+-- Window Functions
+SELECT 
+    first_name,
+    last_name,
+    salary,
+    ROW_NUMBER() OVER (ORDER BY salary DESC) as salary_rank,
+    LAG(salary) OVER (ORDER BY hire_date) as prev_salary
+FROM employees;
+
+-- CASE Statements
+SELECT 
+    first_name,
+    last_name,
+    salary,
+    CASE 
+        WHEN salary < 50000 THEN 'Low'
+        WHEN salary < 80000 THEN 'Medium'
+        ELSE 'High'
+    END as salary_category
+FROM employees;
+        </div>
+        
+        <h2>Getting Started</h2>
+        <p>To start with SQL:</p>
+        <ol>
+            <li>Install a database system (MySQL, PostgreSQL, SQLite)</li>
+            <li>Learn basic SELECT, INSERT, UPDATE, DELETE commands</li>
+            <li>Practice with JOINs and subqueries</li>
+            <li>Understand database design principles</li>
+            <li>Learn about indexes and performance optimization</li>
+        </ol>
+        
+        <h2>Popular Database Systems</h2>
+        <ul>
+            <li><strong>MySQL:</strong> Open-source relational database</li>
+            <li><strong>PostgreSQL:</strong> Advanced open-source database</li>
+            <li><strong>Oracle:</strong> Enterprise database system</li>
+            <li><strong>SQL Server:</strong> Microsoft's database solution</li>
+            <li><strong>SQLite:</strong> Lightweight, embedded database</li>
+        </ul>
+        
+        <h2>Common Use Cases</h2>
+        <ul>
+            <li><strong>Web Applications:</strong> User data, content management</li>
+            <li><strong>Business Intelligence:</strong> Reporting and analytics</li>
+            <li><strong>Data Warehousing:</strong> Large-scale data storage</li>
+            <li><strong>E-commerce:</strong> Product catalogs, orders, customers</li>
+            <li><strong>Financial Systems:</strong> Transactions, accounts, reporting</li>
+        </ul>
+    </div>
+</body>
+</html>

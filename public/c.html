@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C Programming - Systems Programming Language</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .content-page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        h2 {
+            color: #4a5568;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 30px 0 15px 0;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+        }
+        
+        p {
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+            color: #4a5568;
+        }
+        
+        ul, ol {
+            margin: 16px 0 16px 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            color: #4a5568;
+        }
+        
+        strong {
+            color: #2d3748;
+            font-weight: 600;
+        }
+        
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #2d3748;
+        }
+        
+        a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .content-page {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content-page">
+        <a href="index.html" class="back-btn">← Back to Search</a>
+        
+        <h1>C Programming - Systems Programming Language</h1>
+        
+        <p>C is a general-purpose, procedural programming language developed by Dennis Ritchie at Bell Labs in the early 1970s. It was designed to be compiled using a relatively straightforward compiler, to provide low-level access to memory, to provide language constructs that map efficiently to machine instructions, and to require minimal run-time support.</p>
+        
+        <h2>Key Features</h2>
+        <ul>
+            <li><strong>Low-level Access:</strong> Direct memory manipulation with pointers</li>
+            <li><strong>Portable:</strong> Can be compiled on various platforms</li>
+            <li><strong>Efficient:</strong> Close to assembly language performance</li>
+            <li><strong>Structured:</strong> Supports structured programming constructs</li>
+            <li><strong>Standard Library:</strong> Rich set of built-in functions</li>
+        </ul>
+        
+        <h2>Basic C Program</h2>
+        <div class="code-block">
+#include <stdio.h>
+
+int main() {
+    printf("Hello, World!\n");
+    
+    // Variables and data types
+    int number = 42;
+    float pi = 3.14159;
+    char letter = 'A';
+    
+    // Arrays
+    int numbers[5] = {1, 2, 3, 4, 5};
+    
+    // Loops
+    for (int i = 0; i < 5; i++) {
+        printf("Number: %d\n", numbers[i]);
+    }
+    
+    return 0;
+}
+        </div>
+        
+        <h2>Pointers and Memory Management</h2>
+        <div class="code-block">
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    // Pointer declaration
+    int *ptr;
+    int value = 100;
+    
+    // Assigning address to pointer
+    ptr = &value;
+    
+    // Accessing value through pointer
+    printf("Value: %d\n", value);
+    printf("Address: %p\n", (void*)ptr);
+    printf("Value through pointer: %d\n", *ptr);
+    
+    // Dynamic memory allocation
+    int *dynamicArray = (int*)malloc(5 * sizeof(int));
+    
+    if (dynamicArray != NULL) {
+        // Use the allocated memory
+        for (int i = 0; i < 5; i++) {
+            dynamicArray[i] = i * 10;
+        }
+        
+        // Free allocated memory
+        free(dynamicArray);
+    }
+    
+    return 0;
+}
+        </div>
+        
+        <h2>Structures and Functions</h2>
+        <div class="code-block">
+#include <stdio.h>
+#include <string.h>
+
+// Structure definition
+struct Person {
+    char name[50];
+    int age;
+    float height;
+};
+
+// Function declaration
+void printPerson(struct Person p);
+struct Person createPerson(char name[], int age, float height);
+
+int main() {
+    // Creating structure instances
+    struct Person person1 = createPerson("Alice", 25, 165.5);
+    struct Person person2 = createPerson("Bob", 30, 180.0);
+    
+    // Using functions
+    printPerson(person1);
+    printPerson(person2);
+    
+    return 0;
+}
+
+// Function implementation
+struct Person createPerson(char name[], int age, float height) {
+    struct Person p;
+    strcpy(p.name, name);
+    p.age = age;
+    p.height = height;
+    return p;
+}
+
+void printPerson(struct Person p) {
+    printf("Name: %s, Age: %d, Height: %.1f cm\n", 
+           p.name, p.age, p.height);
+}
+        </div>
+        
+        <h2>File Handling</h2>
+        <div class="code-block">
+#include <stdio.h>
+
+int main() {
+    FILE *file;
+    char buffer[100];
+    
+    // Writing to file
+    file = fopen("data.txt", "w");
+    if (file != NULL) {
+        fprintf(file, "Hello, C Programming!\n");
+        fprintf(file, "This is a test file.\n");
+        fclose(file);
+    }
+    
+    // Reading from file
+    file = fopen("data.txt", "r");
+    if (file != NULL) {
+        while (fgets(buffer, sizeof(buffer), file) != NULL) {
+            printf("%s", buffer);
+        }
+        fclose(file);
+    }
+    
+    return 0;
+}
+        </div>
+        
+        <h2>Getting Started</h2>
+        <p>To start with C programming:</p>
+        <ol>
+            <li>Install a C compiler (GCC, Clang, or MSVC)</li>
+            <li>Use a text editor or IDE (VS Code, Dev-C++, Code::Blocks)</li>
+            <li>Learn basic syntax and data types</li>
+            <li>Understand pointers and memory management</li>
+            <li>Practice with small programs and algorithms</li>
+        </ol>
+        
+        <h2>Common Use Cases</h2>
+        <ul>
+            <li><strong>System Programming:</strong> Operating systems, device drivers</li>
+            <li><strong>Embedded Systems:</strong> Microcontrollers, IoT devices</li>
+            <li><strong>Game Development:</strong> Performance-critical applications</li>
+            <li><strong>Scientific Computing:</strong> Numerical analysis, simulations</li>
+            <li><strong>Network Programming:</strong> Low-level network protocols</li>
+        </ul>
+        
+        <h2>Best Practices</h2>
+        <ul>
+            <li>Always check return values from functions</li>
+            <li>Free dynamically allocated memory</li>
+            <li>Use meaningful variable and function names</li>
+            <li>Include proper error handling</li>
+            <li>Follow consistent coding style</li>
+        </ul>
+    </div>
+</body>
+</html>

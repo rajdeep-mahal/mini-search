@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C++ Programming - Object-Oriented Systems Language</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .content-page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        h2 {
+            color: #4a5568;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 30px 0 15px 0;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+        }
+        
+        p {
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+            color: #4a5568;
+        }
+        
+        ul, ol {
+            margin: 16px 0 16px 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            color: #4a5568;
+        }
+        
+        strong {
+            color: #2d3748;
+            font-weight: 600;
+        }
+        
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #2d3748;
+        }
+        
+        a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .content-page {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content-page">
+        <a href="index.html" class="back-btn">← Back to Search</a>
+        
+        <h1>C++ Programming - Object-Oriented Systems Language</h1>
+        
+        <p>C++ is a powerful general-purpose programming language created by Bjarne Stroustrup as an extension to the C programming language. It offers a perfect blend of high-level and low-level programming features, making it ideal for systems programming, game development, and applications requiring high performance and low-level memory manipulation.</p>
+        
+        <h2>Key Features</h2>
+        <ul>
+            <li><strong>Object-Oriented:</strong> Classes, inheritance, polymorphism, encapsulation</li>
+            <li><strong>Generic Programming:</strong> Templates for type-independent code</li>
+            <li><strong>Memory Management:</strong> Both automatic and manual memory control</li>
+            <li><strong>Performance:</strong> Close to C performance with high-level abstractions</li>
+            <li><strong>Standard Template Library:</strong> Rich collection of containers and algorithms</li>
+        </ul>
+        
+        <h2>Basic C++ Program</h2>
+        <div class="code-block">
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    cout << "Hello, C++ World!" << endl;
+    
+    // Variables and data types
+    int number = 42;
+    double pi = 3.14159;
+    string message = "C++ is powerful!";
+    
+    // Arrays
+    int numbers[] = {1, 2, 3, 4, 5};
+    
+    // Range-based for loop (C++11)
+    for (int num : numbers) {
+        cout << "Number: " << num << endl;
+    }
+    
+    return 0;
+}
+        </div>
+        
+        <h2>Classes and Objects</h2>
+        <div class="code-block">
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Rectangle {
+private:
+    double width;
+    double height;
+    
+public:
+    // Constructor
+    Rectangle(double w, double h) : width(w), height(h) {}
+    
+    // Member functions
+    double getArea() const {
+        return width * height;
+    }
+    
+    double getPerimeter() const {
+        return 2 * (width + height);
+    }
+    
+    // Getters and setters
+    double getWidth() const { return width; }
+    double getHeight() const { return height; }
+    
+    void setWidth(double w) { width = w; }
+    void setHeight(double h) { height = h; }
+};
+
+int main() {
+    Rectangle rect(5.0, 3.0);
+    
+    cout << "Area: " << rect.getArea() << endl;
+    cout << "Perimeter: " << rect.getPerimeter() << endl;
+    
+    return 0;
+}
+        </div>
+        
+        <h2>Templates and Generic Programming</h2>
+        <div class="code-block">
+#include <iostream>
+using namespace std;
+
+// Function template
+template<typename T>
+T maximum(T a, T b) {
+    return (a > b) ? a : b;
+}
+
+// Class template
+template<typename T>
+class Stack {
+private:
+    T* elements;
+    int capacity;
+    int top;
+    
+public:
+    Stack(int size) : capacity(size), top(-1) {
+        elements = new T[capacity];
+    }
+    
+    ~Stack() {
+        delete[] elements;
+    }
+    
+    void push(T value) {
+        if (top < capacity - 1) {
+            elements[++top] = value;
+        }
+    }
+    
+    T pop() {
+        if (top >= 0) {
+            return elements[top--];
+        }
+        return T();
+    }
+    
+    bool isEmpty() const {
+        return top == -1;
+    }
+};
+
+int main() {
+    // Using function template
+    cout << "Max of 5 and 10: " << maximum(5, 10) << endl;
+    cout << "Max of 3.14 and 2.71: " << maximum(3.14, 2.71) << endl;
+    
+    // Using class template
+    Stack<int> intStack(5);
+    intStack.push(1);
+    intStack.push(2);
+    intStack.push(3);
+    
+    while (!intStack.isEmpty()) {
+        cout << "Popped: " << intStack.pop() << endl;
+    }
+    
+    return 0;
+}
+        </div>
+        
+        <h2>STL Containers and Algorithms</h2>
+        <div class="code-block">
+#include <iostream>
+#include <vector>
+#include <map>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+int main() {
+    // Vector - dynamic array
+    vector<int> numbers = {3, 1, 4, 1, 5, 9, 2, 6};
+    
+    // Sorting
+    sort(numbers.begin(), numbers.end());
+    
+    // Finding elements
+    auto it = find(numbers.begin(), numbers.end(), 5);
+    if (it != numbers.end()) {
+        cout << "Found 5 at position: " << (it - numbers.begin()) << endl;
+    }
+    
+    // Map - key-value pairs
+    map<string, int> ages;
+    ages["Alice"] = 25;
+    ages["Bob"] = 30;
+    ages["Charlie"] = 35;
+    
+    // Iterating through map
+    for (const auto& pair : ages) {
+        cout << pair.first << ": " << pair.second << " years" << endl;
+    }
+    
+    // Lambda functions
+    auto isEven = [](int n) { return n % 2 == 0; };
+    
+    // Count even numbers
+    int evenCount = count_if(numbers.begin(), numbers.end(), isEven);
+    cout << "Even numbers count: " << evenCount << endl;
+    
+    return 0;
+}
+        </div>
+        
+        <h2>Modern C++ Features (C++11 and beyond)</h2>
+        <div class="code-block">
+#include <iostream>
+#include <memory>
+#include <vector>
+using namespace std;
+
+int main() {
+    // Auto keyword for type inference
+    auto message = "Hello, Modern C++!";
+    auto numbers = {1, 2, 3, 4, 5};
+    
+    // Smart pointers
+    unique_ptr<int> ptr1 = make_unique<int>(42);
+    shared_ptr<int> ptr2 = make_shared<int>(100);
+    
+    // Lambda expressions
+    vector<int> vec = {1, 2, 3, 4, 5};
+    for_each(vec.begin(), vec.end(), [](int& n) {
+        n *= 2;
+    });
+    
+    // Range-based for loop
+    for (const auto& num : vec) {
+        cout << num << " ";
+    }
+    cout << endl;
+    
+    // nullptr instead of NULL
+    int* ptr = nullptr;
+    
+    return 0;
+}
+        </div>
+        
+        <h2>Getting Started</h2>
+        <p>To start with C++ programming:</p>
+        <ol>
+            <li>Install a C++ compiler (GCC, Clang, or MSVC)</li>
+            <li>Use an IDE (Visual Studio, CLion, Code::Blocks)</li>
+            <li>Learn basic syntax and OOP concepts</li>
+            <li>Master templates and STL</li>
+            <li>Practice with modern C++ features</li>
+        </ol>
+        
+        <h2>Common Use Cases</h2>
+        <ul>
+            <li><strong>Game Development:</strong> Unreal Engine, game engines</li>
+            <li><strong>System Software:</strong> Operating systems, drivers</li>
+            <li><strong>High-Performance Applications:</strong> Trading systems, simulations</li>
+            <li><strong>Embedded Systems:</strong> IoT devices, microcontrollers</li>
+            <li><strong>Desktop Applications:</strong> Qt applications, system tools</li>
+        </ul>
+        
+        <h2>Best Practices</h2>
+        <ul>
+            <li>Use RAII (Resource Acquisition Is Initialization)</li>
+            <li>Prefer smart pointers over raw pointers</li>
+            <li>Use const correctness</li>
+            <li>Follow the Rule of Three/Five</li>
+            <li>Use modern C++ features when possible</li>
+        </ul>
+    </div>
+</body>
+</html>
