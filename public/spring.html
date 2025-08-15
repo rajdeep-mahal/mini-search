@@ -4,18 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spring Framework - Java Web Development</title>
-    <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
         .content-page {
             max-width: 800px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 40px;
             background: white;
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            margin-top: 40px;
+            margin-top: 20px;
         }
+        
         .back-btn {
             display: inline-block;
             padding: 12px 24px;
@@ -25,19 +40,92 @@
             border-radius: 10px;
             margin-bottom: 30px;
             transition: all 0.3s ease;
+            font-weight: 500;
         }
+        
         .back-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
         }
+        
+        h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        h2 {
+            color: #4a5568;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 30px 0 15px 0;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+        }
+        
+        p {
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+            color: #4a5568;
+        }
+        
+        ul, ol {
+            margin: 16px 0 16px 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            color: #4a5568;
+        }
+        
+        strong {
+            color: #2d3748;
+            font-weight: 600;
+        }
+        
         .code-block {
             background: #f8f9fa;
             border: 1px solid #e9ecef;
             border-radius: 8px;
             padding: 20px;
             margin: 20px 0;
-            font-family: 'Monaco', 'Menlo', monospace;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
             overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #2d3748;
+        }
+        
+        a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .content-page {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            body {
+                padding: 10px;
+            }
         }
     </style>
 </head>
@@ -47,7 +135,7 @@
         
         <h1>Spring Framework - Java Web Development</h1>
         
-        <p>Spring Framework is a comprehensive framework for building Java applications. It provides infrastructure support for developing Java applications and includes features like dependency injection, aspect-oriented programming, and data access.</p>
+        <p>Spring Framework is a comprehensive framework for building Java applications. It provides infrastructure support for developing Java applications and includes features like dependency injection, aspect-oriented programming, and data access. Spring Boot makes it easy to create stand-alone, production-grade Spring based Applications that you can "just run". Spring provides a rich set of tools for building web applications, REST APIs, and microservices.</p>
         
         <h2>Key Features</h2>
         <ul>
