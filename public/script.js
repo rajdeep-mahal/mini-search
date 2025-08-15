@@ -155,3 +155,20 @@ function displayError(message) {
 
 // Initialize clear button state
 updateClearButton();
+
+// Duplicate suggestions for seamless infinite scrolling
+function setupInfiniteScroll() {
+    const container = document.querySelector('.suggestions-container');
+    if (container) {
+        // Clone the suggestions and append them
+        const clone = container.cloneNode(true);
+        container.parentNode.appendChild(clone);
+        
+        // Set the container width to accommodate all suggestions
+        const totalWidth = container.scrollWidth;
+        container.style.width = totalWidth + 'px';
+    }
+}
+
+// Call the function when the page loads
+document.addEventListener('DOMContentLoaded', setupInfiniteScroll);
