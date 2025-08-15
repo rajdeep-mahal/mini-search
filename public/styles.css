@@ -101,22 +101,35 @@ header p {
     display: flex;
 }
 
-.search-btn {
-    padding: 18px 30px;
-    font-size: 18px;
+#searchBtn {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
-    border-radius: 15px;
+    padding: 12px 24px;
+    border-radius: 25px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    font-size: 16px;
     font-weight: 600;
-    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    margin-top: 15px;
 }
 
-.search-btn:hover {
+#searchBtn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+#searchBtn:active {
+    transform: translateY(0);
+}
+
+#searchBtn svg {
+    width: 18px;
+    height: 18px;
 }
 
 .suggestions {
