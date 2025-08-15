@@ -36,38 +36,43 @@ header p {
     font-weight: 300;
 }
 
-.search-box {
+.search-container {
     display: flex;
+    flex-direction: row;
+    align-items: center;
     gap: 15px;
-    margin-bottom: 30px;
+    margin: 30px 0;
+    justify-content: center;
 }
 
 .input-container {
     position: relative;
     flex: 1;
+    max-width: 500px;
 }
 
 #searchInput {
     width: 100%;
-    padding: 18px 25px;
-    font-size: 18px;
-    border: 2px solid #e1e5e9;
-    border-radius: 15px;
-    outline: none;
+    padding: 15px 50px 15px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 16px;
+    backdrop-filter: blur(10px);
     transition: all 0.3s ease;
-    background: white;
-    padding-right: 50px;
     box-sizing: border-box;
 }
 
-#searchInput:focus {
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    transform: translateY(-2px);
+#searchInput::placeholder {
+    color: rgba(255, 255, 255, 0.7);
 }
 
-#searchInput::placeholder {
-    color: #9ca3af;
+#searchInput:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
 .clear-btn {
@@ -75,37 +80,33 @@ header p {
     right: 15px;
     top: 50%;
     transform: translateY(-50%);
-    background: #e5e7eb;
-    color: #6b7280;
+    background: none;
     border: none;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 20px;
     cursor: pointer;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: bold;
-    transition: all 0.2s ease;
-    z-index: 10;
-}
-
-.clear-btn:hover {
-    background: #d1d5db;
-    color: #374151;
-    transform: scale(1.1);
+    padding: 5px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
 }
 
 .clear-btn.visible {
-    display: flex;
+    opacity: 1;
+    visibility: visible;
+}
+
+.clear-btn:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
 }
 
 #searchBtn {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
-    padding: 12px 24px;
+    padding: 15px 24px;
     border-radius: 25px;
     cursor: pointer;
     font-size: 16px;
@@ -115,7 +116,8 @@ header p {
     gap: 8px;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-    margin-top: 15px;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 #searchBtn:hover {
@@ -272,33 +274,27 @@ header p {
 }
 
 @media (max-width: 768px) {
-    .container {
-        padding: 20px 15px;
-    }
-    
-    header h1 {
-        font-size: 2.5rem;
-    }
-    
-    .search-box {
+    .search-container {
         flex-direction: column;
         gap: 15px;
+        align-items: stretch;
     }
     
     .input-container {
+        max-width: 100%;
+    }
+    
+    #searchBtn {
         width: 100%;
+        justify-content: center;
     }
     
     .suggestions {
-        gap: 8px;
+        padding: 0 10px;
     }
     
     .suggestion-tag {
-        font-size: 13px;
         padding: 6px 12px;
-    }
-    
-    .results {
-        padding: 20px;
+        font-size: 14px;
     }
 }
