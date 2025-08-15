@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angular - Platform for Building Web Applications</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .content-page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        h2 {
+            color: #4a5568;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 30px 0 15px 0;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+        }
+        
+        p {
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+            color: #4a5568;
+        }
+        
+        ul, ol {
+            margin: 16px 0 16px 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            color: #4a5568;
+        }
+        
+        strong {
+            color: #2d3748;
+            font-weight: 600;
+        }
+        
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #2d3748;
+        }
+        
+        a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .content-page {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content-page">
+        <a href="index.html" class="back-btn">← Back to Search</a>
+        
+        <h1>Angular - Platform for Building Web Applications</h1>
+        
+        <p>Angular is a platform and framework for building single-page client applications using HTML and TypeScript. Angular is written in TypeScript and implements core and optional functionality as a set of TypeScript libraries that you import into your applications. It provides a comprehensive solution for building scalable web applications with a focus on enterprise development.</p>
+        
+        <h2>Key Features</h2>
+        <ul>
+            <li><strong>TypeScript Integration:</strong> Built with TypeScript for better tooling</li>
+            <li><strong>Component-Based Architecture:</strong> Reusable UI components</li>
+            <li><strong>Dependency Injection:</strong> Built-in DI container</li>
+            <li><strong>Two-Way Data Binding:</strong> Automatic synchronization</li>
+            <li><strong>CLI Tools:</strong> Powerful command-line interface</li>
+        </ul>
+        
+        <h2>Getting Started</h2>
+        <div class="code-block">
+-- Install Angular CLI globally
+npm install -g @angular/cli
+
+-- Create a new Angular project
+ng new my-angular-app
+cd my-angular-app
+
+-- Serve the application
+ng serve
+
+-- Build for production
+ng build --prod
+
+-- Generate components, services, etc.
+ng generate component my-component
+ng generate service my-service
+ng generate pipe my-pipe
+        </div>
+        
+        <h2>Basic Component</h2>
+        <div class="code-block">
+// app.component.ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <div class="app">
+      <h1>{{ title }}</h1>
+      <p>{{ message }}</p>
+      <button (click)="incrementCount()">
+        Clicked {{ count }} times
+      </button>
+    </div>
+  `,
+  styles: [`
+    .app { text-align: center; padding: 20px; }
+    button { padding: 10px 20px; font-size: 16px; }
+  `]
+})
+export class AppComponent {
+  title = 'My Angular App';
+  message = 'Welcome to Angular!';
+  count = 0;
+
+  incrementCount() {
+    this.count++;
+  }
+}
+        </div>
+        
+        <h2>Component with Template File</h2>
+        <div class="code-block">
+// user-profile.component.ts
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+
+@Component({
+  selector: 'app-user-profile',
+  templateUrl: './user-profile.component.html',
+  styleUrls: ['./user-profile.component.css']
+})
+export class UserProfileComponent {
+  @Input() user: any;
+  @Output() userUpdated = new EventEmitter<any>();
+
+  updateUser() {
+    this.user.name = 'Updated Name';
+    this.userUpdated.emit(this.user);
+  }
+}
+
+// user-profile.component.html
+<div class="user-profile">
+  <h2>{{ user.name }}</h2>
+  <p>Email: {{ user.email }}</p>
+  <p>Role: {{ user.role }}</p>
+  <button (click)="updateUser()">Update User</button>
+</div>
+
+// user-profile.component.css
+.user-profile {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 10px 0;
+}
+
+button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+        </div>
+        
+        <h2>Services and Dependency Injection</h2>
+        <div class="code-block">
+// user.service.ts
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UserService {
+  private apiUrl = 'https://api.example.com/users';
+
+  constructor(private http: HttpClient) { }
+
+  getUsers(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
+  }
+
+  getUser(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
+
+  createUser(user: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, user);
+  }
+
+  updateUser(id: number, user: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${id}`, user);
+  }
+
+  deleteUser(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  }
+}
+
+// user-list.component.ts
+import { Component, OnInit } from '@angular/core';
+import { UserService } from '../user.service';
+
+@Component({
+  selector: 'app-user-list',
+  template: `
+    <div class="user-list">
+      <h2>Users</h2>
+      <div *ngFor="let user of users" class="user-item">
+        {{ user.name }} - {{ user.email }}
+      </div>
+    </div>
+  `
+})
+export class UserListComponent implements OnInit {
+  users: any[] = [];
+
+  constructor(private userService: UserService) { }
+
+  ngOnInit() {
+    this.loadUsers();
+  }
+
+  loadUsers() {
+    this.userService.getUsers().subscribe(
+      users => this.users = users,
+      error => console.error('Error loading users:', error)
+    );
+  }
+}
+        </div>
+        
+        <h2>Routing and Navigation</h2>
+        <div class="code-block">
+// app-routing.module.ts
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { UserDetailComponent } from './user-detail/user-detail.component';
+
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'users', component: UserListComponent },
+  { path: 'users/:id', component: UserDetailComponent },
+  { path: '**', redirectTo: '' }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+// app.component.html
+<nav>
+  <a routerLink="/">Home</a>
+  <a routerLink="/users">Users</a>
+</nav>
+
+<router-outlet></router-outlet>
+
+// user-detail.component.ts
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { UserService } from '../user.service';
+
+@Component({
+  selector: 'app-user-detail',
+  template: `
+    <div *ngIf="user">
+      <h2>{{ user.name }}</h2>
+      <p>Email: {{ user.email }}</p>
+      <p>Role: {{ user.role }}</p>
+    </div>
+  `
+})
+export class UserDetailComponent implements OnInit {
+  user: any;
+
+  constructor(
+    private route: ActivatedRoute,
+    private userService: UserService
+  ) { }
+
+  ngOnInit() {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.userService.getUser(id).subscribe(user => this.user = user);
+  }
+}
+        </div>
+        
+        <h2>Forms and Validation</h2>
+        <div class="code-block">
+// user-form.component.ts
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../user.service';
+
+@Component({
+  selector: 'app-user-form',
+  template: `
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label>Name:</label>
+        <input formControlName="name" type="text">
+        <div *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.touched">
+          Name is required
+        </div>
+      </div>
+
+      <div>
+        <label>Email:</label>
+        <input formControlName="email" type="email">
+        <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched">
+          Valid email is required
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="userForm.invalid">Submit</button>
+    </form>
+  `
+})
+export class UserFormComponent {
+  userForm: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService
+  ) {
+    this.userForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]]
+    });
+  }
+
+  onSubmit() {
+    if (this.userForm.valid) {
+      this.userService.createUser(this.userForm.value).subscribe(
+        user => console.log('User created:', user),
+        error => console.error('Error creating user:', error)
+      );
+    }
+  }
+}
+        </div>
+        
+        <h2>HTTP Interceptors</h2>
+        <div class="code-block">
+// auth.interceptor.ts
+import { Injectable } from '@angular/core';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const token = localStorage.getItem('auth_token');
+    
+    if (token) {
+      const authReq = req.clone({
+        headers: req.headers.set('Authorization', `Bearer ${token}`)
+      });
+      return next.handle(authReq);
+    }
+    
+    return next.handle(req);
+  }
+}
+
+// app.module.ts
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
+@NgModule({
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ]
+})
+export class AppModule { }
+        </div>
+        
+        <h2>Pipes and Custom Pipes</h2>
+        <div class="code-block">
+// custom.pipe.ts
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'capitalize'
+})
+export class CapitalizePipe implements PipeTransform {
+  transform(value: string): string {
+    if (!value) return value;
+    return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+  }
+}
+
+// Using pipes in template
+<div>{{ 'hello world' | capitalize }}</div>
+<div>{{ user.name | uppercase }}</div>
+<div>{{ user.createdAt | date:'medium' }}</div>
+<div>{{ user.salary | currency:'USD' }}</div>
+
+// Async pipe for observables
+<div *ngFor="let user of users$ | async">
+  {{ user.name }}
+</div>
+        </div>
+        
+        <h2>Getting Started</h2>
+        <p>To start with Angular:</p>
+        <ol>
+            <li>Learn TypeScript fundamentals</li>
+            <li>Install Angular CLI and create your first app</li>
+            <li>Understand components, services, and modules</li>
+            <li>Master routing and forms</li>
+            <li>Learn about observables and RxJS</li>
+        </ol>
+        
+        <h2>Popular Angular Libraries</h2>
+        <ul>
+            <li><strong>Angular Material:</strong> Material Design components</li>
+            <li><strong>NgRx:</strong> State management for Angular</li>
+            <li><strong>Angular Flex Layout:</strong> CSS flexbox utilities</li>
+            <li><strong>Angular Universal:</strong> Server-side rendering</li>
+            <li><strong>Angular PWA:</strong> Progressive web app features</li>
+        </ul>
+        
+        <h2>Use Cases</h2>
+        <ul>
+            <li><strong>Enterprise Applications:</strong> Large-scale business apps</li>
+            <li><strong>Admin Dashboards:</strong> Management interfaces</li>
+            <li><strong>E-commerce Platforms:</strong> Online shopping systems</li>
+            <li><strong>Content Management Systems:</strong> CMS applications</li>
+            <li><strong>Financial Applications:</strong> Banking and trading systems</li>
+        </ul>
+        
+        <h2>Best Practices</h2>
+        <ul>
+            <li>Use Angular CLI for project generation</li>
+            <li>Follow the Angular style guide</li>
+            <li>Implement lazy loading for better performance</li>
+            <li>Use OnPush change detection strategy</li>
+            <li>Implement proper error handling and loading states</li>
+        </ul>
+    </div>
+</body>
+</html>
