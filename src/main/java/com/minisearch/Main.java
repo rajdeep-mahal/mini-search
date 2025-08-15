@@ -1,21 +1,11 @@
 package com.minisearch;
 
-import com.minisearch.crawler.SimpleWebCrawler;
-import com.minisearch.crawler.CrawlerConfig;
-import com.minisearch.model.WebPage;
 import com.minisearch.indexer.SimpleSearchIndexer;
-import com.minisearch.indexer.DocumentIndex;
+import com.minisearch.model.WebPage;
 import com.minisearch.search.SimpleSearchEngine;
-import com.minisearch.search.SearchQuery;
-import com.minisearch.search.SearchResult;
-import com.minisearch.search.SearchFilters;
 import com.minisearch.web.SimpleWebServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
-import java.util.Scanner;
-import java.util.Arrays;
 
 /**
  * Main class for the Mini Search Engine
@@ -28,493 +18,80 @@ public class Main {
         logger.info("Starting Mini Search Engine...");
         
         try {
-            // Demonstrate the crawler functionality
-            demonstrateCrawler();
+            // Create indexer and search engine
+            SimpleSearchIndexer indexer = new SimpleSearchIndexer();
+            SimpleSearchEngine searchEngine = new SimpleSearchEngine(indexer);
             
-            // Demonstrate the indexing functionality
-            demonstrateIndexer();
+            // Index sample pages
+            indexSamplePages(indexer);
             
-            // Demonstrate the search engine functionality
-            demonstrateSearchEngine();
+            // Start web server
+            int port = 8080;
+            if (args.length > 0) {
+                try {
+                    port = Integer.parseInt(args[0]);
+                } catch (NumberFormatException e) {
+                    logger.warn("Invalid port number, using default: 8080");
+                }
+            }
             
-            // Demonstrate the web interface
-            demonstrateWebInterface();
+            SimpleWebServer webServer = new SimpleWebServer(port, searchEngine);
+            webServer.start();
             
-            logger.info("Mini Search Engine demo completed!");
+            logger.info("🌐 Mini Search Engine started successfully!");
+            logger.info("📱 Open your browser and go to: http://localhost:{}", port);
+            logger.info("🔍 Try searching for: 'spring', 'python', 'javascript', 'elasticsearch', 'scrapy'");
+            logger.info("⏹️  Press Ctrl+C to stop the server");
+            
+            // Keep the server running
+            while (true) {
+                Thread.sleep(1000);
+            }
             
         } catch (Exception e) {
-            logger.error("Error in Mini Search Engine", e);
+            logger.error("Error starting Mini Search Engine", e);
             System.exit(1);
         }
     }
     
     /**
-     * Demonstrate the web crawler functionality
+     * Index sample pages for demonstration
      */
-    private static void demonstrateCrawler() {
-        logger.info("=== Web Crawler Demo ===");
+    private static void indexSamplePages(SimpleSearchIndexer indexer) {
+        logger.info("Indexing sample pages...");
         
-        // Create crawler configuration
-        CrawlerConfig config = CrawlerConfig.builder()
-            .maxPages(5)
-            .delayMs(2000) // 2 seconds between requests
-            .timeoutMs(10000)
-            .threadPoolSize(2)
-            .userAgent("MiniSearch-Engine-Demo/1.0")
-            .build();
+        WebPage webPage1 = new WebPage("/spring");
+        webPage1.setTitle("Spring Framework - Java Web Development");
+        webPage1.setContent("Spring Framework is a comprehensive solution for building enterprise-grade Java applications. It provides a wide range of features that make Java development easier and more productive. Learn about Spring's core features, web development, data access, and more.");
+        webPage1.setDomain("localhost:8080");
         
-        logger.info("Crawler configuration: {}", config);
+        WebPage webPage2 = new WebPage("/python");
+        webPage2.setTitle("Python Programming Language");
+        webPage2.setContent("Python is a high-level, interpreted programming language known for its simplicity and readability. It's widely used in web development, data science, artificial intelligence, and automation. Learn about Python's key characteristics, web frameworks, and data science capabilities.");
+        webPage2.setDomain("localhost:8080");
         
-        // Create crawler instance
-        SimpleWebCrawler crawler = new SimpleWebCrawler(config.getThreadPoolSize());
+        WebPage webPage3 = new WebPage("/javascript");
+        webPage3.setTitle("JavaScript - Modern Web Development");
+        webPage3.setContent("JavaScript is a versatile programming language that powers the modern web. It runs in browsers and has expanded to server-side development with Node.js. Learn about JavaScript's core features, frontend frameworks, and Node.js ecosystem.");
+        webPage3.setDomain("localhost:8080");
         
-        try {
-            // Demo 1: Crawl a single URL
-            logger.info("\n--- Demo 1: Crawl Single URL ---");
-            String testUrl = "https://httpbin.org/html";
-            logger.info("Crawling single URL: {}", testUrl);
-            
-            WebPage page = crawler.crawlUrl(testUrl);
-            if (page != null) {
-                logger.info("Successfully crawled: {}", page.getUrl());
-                logger.info("Title: {}", page.getTitle());
-                logger.info("Content length: {} characters", page.getContentLength());
-                logger.info("Links found: {}", page.getLinks() != null ? page.getLinks().size() : 0);
-            } else {
-                logger.warn("Failed to crawl URL: {}", testUrl);
-            }
-            
-            // Demo 2: Crawl multiple URLs
-            logger.info("\n--- Demo 2: Crawl Multiple URLs ---");
-            List<String> urls = List.of(
-                "https://httpbin.org/html",
-                "https://httpbin.org/json",
-                "https://httpbin.org/xml"
-            );
-            
-            logger.info("Crawling multiple URLs: {}", urls);
-            List<WebPage> pages = crawler.crawlUrls(urls);
-            logger.info("Successfully crawled {} out of {} URLs", pages.size(), urls.size());
-            
-            // Demo 3: Show crawler statistics
-            logger.info("\n--- Demo 3: Crawler Statistics ---");
-            var stats = crawler.getCrawlingStats();
-            logger.info("Crawling statistics: {}", stats);
-            
-            // Demo 4: Interactive crawling
-            logger.info("\n--- Demo 4: Interactive Crawling ---");
-            interactiveCrawling(crawler);
-            
-        } finally {
-            // Cleanup
-            crawler.shutdown();
-            logger.info("Crawler shutdown completed");
-        }
-    }
-    
-    /**
-     * Interactive crawling demo
-     */
-    private static void interactiveCrawling(SimpleWebCrawler crawler) {
-        Scanner scanner = new Scanner(System.in);
+        WebPage webPage4 = new WebPage("/elasticsearch");
+        webPage4.setTitle("Elasticsearch - Search Engine Technology");
+        webPage4.setContent("Elasticsearch is a distributed, RESTful search and analytics engine built on Apache Lucene. It's designed for horizontal scalability and real-time search capabilities. Learn about Elasticsearch's core concepts, features, and use cases.");
+        webPage4.setDomain("localhost:8080");
         
-        try {
-            logger.info("Enter a URL to crawl (or 'quit' to exit):");
-            String input = scanner.nextLine().trim();
-            
-            if ("quit".equalsIgnoreCase(input)) {
-                logger.info("Interactive demo ended");
-                return;
-            }
-            
-            if (!input.isEmpty()) {
-                logger.info("Crawling URL: {}", input);
-                WebPage page = crawler.crawlUrl(input);
-                
-                if (page != null) {
-                    logger.info("✓ Successfully crawled: {}", page.getUrl());
-                    logger.info("  Title: {}", page.getTitle() != null ? page.getTitle() : "No title");
-                    logger.info("  Content: {} characters", page.getContentLength());
-                    logger.info("  Domain: {}", page.getDomain() != null ? page.getDomain() : "Unknown");
-                    
-                    if (page.getLinks() != null && !page.getLinks().isEmpty()) {
-                        logger.info("  Links found: {}", page.getLinks().size());
-                        // Show first few links
-                        page.getLinks().stream()
-                            .limit(3)
-                            .forEach(link -> logger.info("    - {}", link));
-                        if (page.getLinks().size() > 3) {
-                            logger.info("    ... and {} more", page.getLinks().size() - 3);
-                        }
-                    }
-                } else {
-                    logger.warn("✗ Failed to crawl URL: {}", input);
-                }
-            }
-            
-        } catch (Exception e) {
-            logger.error("Error during interactive crawling", e);
-        }
-    }
-    
-    /**
-     * Demonstrate the search indexer functionality
-     */
-    private static void demonstrateIndexer() {
-        logger.info("\n=== Search Indexer Demo ===");
+        WebPage webPage5 = new WebPage("/scrapy");
+        webPage5.setTitle("Scrapy - Web Scraping Framework");
+        webPage5.setContent("Scrapy is a fast high-level web crawling and web scraping framework written in Python. It's used to extract structured data from websites and can be used for data mining, monitoring, and automated testing. Learn about Scrapy's architecture and features.");
+        webPage5.setDomain("localhost:8080");
         
-        // Create indexer instance
-        SimpleSearchIndexer indexer = new SimpleSearchIndexer();
+        // Index the pages
+        indexer.indexPage(webPage1);
+        indexer.indexPage(webPage2);
+        indexer.indexPage(webPage3);
+        indexer.indexPage(webPage4);
+        indexer.indexPage(webPage5);
         
-        try {
-            // Demo 1: Index sample web pages
-            logger.info("\n--- Demo 1: Index Sample Pages ---");
-            
-            WebPage samplePage1 = new WebPage("https://example.com/java");
-            samplePage1.setTitle("Java Programming Guide");
-            samplePage1.setContent("Java is a popular programming language used for web development, Android apps, and enterprise software. Java provides object-oriented programming features and platform independence.");
-            samplePage1.setDomain("example.com");
-            
-            WebPage samplePage2 = new WebPage("https://example.com/python");
-            samplePage2.setTitle("Python Tutorial");
-            samplePage2.setContent("Python is a versatile programming language great for data science, machine learning, web development, and automation. Python has simple syntax and extensive libraries.");
-            samplePage2.setDomain("example.com");
-            
-            WebPage samplePage3 = new WebPage("https://example.com/javascript");
-            samplePage3.setTitle("JavaScript Basics");
-            samplePage3.setContent("JavaScript is the language of the web. It runs in browsers and enables interactive web pages. JavaScript is essential for modern web development.");
-            samplePage3.setDomain("example.com");
-            
-            // Index the pages
-            indexer.indexPage(samplePage1);
-            indexer.indexPage(samplePage2);
-            indexer.indexPage(samplePage3);
-            
-            logger.info("Indexed {} pages", indexer.getIndexSize());
-            
-            // Demo 2: Search functionality
-            logger.info("\n--- Demo 2: Search Functionality ---");
-            
-            // Search for "programming"
-            List<DocumentIndex> programmingResults = indexer.search(Arrays.asList("programming"));
-            logger.info("Search for 'programming': {} results", programmingResults.size());
-            for (DocumentIndex doc : programmingResults) {
-                logger.info("  - {}: {} (score: {})", doc.getTitle(), doc.getUrl(), String.format("%.2f", doc.getRelevanceScore()));
-            }
-            
-            // Search for "Java" AND "development"
-            List<DocumentIndex> javaDevResults = indexer.search(Arrays.asList("java", "development"));
-            logger.info("Search for 'Java' AND 'development': {} results", javaDevResults.size());
-            for (DocumentIndex doc : javaDevResults) {
-                logger.info("  - {}: {} (score: {})", doc.getTitle(), doc.getUrl(), String.format("%.2f", doc.getRelevanceScore()));
-            }
-            
-            // Search for "web" OR "data"
-            List<DocumentIndex> webOrDataResults = indexer.searchAny(Arrays.asList("web", "data"));
-            logger.info("Search for 'web' OR 'data': {} results", webOrDataResults.size());
-            for (DocumentIndex doc : webOrDataResults) {
-                logger.info("  - {}: {} (score: {})", doc.getTitle(), doc.getUrl(), String.format("%.2f", doc.getRelevanceScore()));
-            }
-            
-            // Demo 3: Index statistics
-            logger.info("\n--- Demo 3: Index Statistics ---");
-            var indexStats = indexer.getIndexStats();
-            logger.info("Index statistics: {}", indexStats);
-            
-            var indexingStats = indexer.getIndexingStats();
-            logger.info("Indexing statistics: {}", indexingStats);
-            
-            // Demo 4: Term analysis
-            logger.info("\n--- Demo 4: Term Analysis ---");
-            List<String> allTerms = indexer.getAllIndexedTerms();
-            logger.info("Total unique terms indexed: {}", allTerms.size());
-            
-            // Show first 10 terms
-            allTerms.stream()
-                .limit(10)
-                .forEach(term -> {
-                    int docCount = indexer.getDocumentsForTerm(term).size();
-                    logger.info("  - '{}': found in {} documents", term, docCount);
-                });
-            
-            // Demo 5: Interactive search
-            logger.info("\n--- Demo 5: Interactive Search ---");
-            interactiveSearch(indexer);
-            
-        } catch (Exception e) {
-            logger.error("Error during indexer demo", e);
-        }
-    }
-    
-    /**
-     * Interactive search demo
-     */
-    private static void interactiveSearch(SimpleSearchIndexer indexer) {
-        Scanner scanner = new Scanner(System.in);
-        
-        try {
-            logger.info("Enter search terms (space-separated, or 'quit' to exit):");
-            String input = scanner.nextLine().trim();
-            
-            if ("quit".equalsIgnoreCase(input)) {
-                logger.info("Interactive search demo ended");
-                return;
-            }
-            
-            if (!input.isEmpty()) {
-                String[] terms = input.split("\\s+");
-                List<String> searchTerms = Arrays.asList(terms);
-                
-                logger.info("Searching for: {}", searchTerms);
-                
-                // Perform search
-                List<DocumentIndex> results = indexer.search(searchTerms);
-                
-                if (results.isEmpty()) {
-                    logger.info("No results found for: {}", searchTerms);
-                } else {
-                    logger.info("Found {} results:", results.size());
-                    for (int i = 0; i < Math.min(results.size(), 5); i++) {
-                        DocumentIndex doc = results.get(i);
-                        logger.info("  {}. {} (score: {})", i + 1, doc.getTitle(), String.format("%.2f", doc.getRelevanceScore()));
-                        logger.info("     URL: {}", doc.getUrl());
-                        logger.info("     Content: {} characters", doc.getContentLength());
-                    }
-                    if (results.size() > 5) {
-                        logger.info("     ... and {} more results", results.size() - 5);
-                    }
-                }
-            }
-            
-        } catch (Exception e) {
-            logger.error("Error during interactive search", e);
-        }
-    }
-    
-    /**
-     * Demonstrate the search engine functionality
-     */
-    private static void demonstrateSearchEngine() {
-        logger.info("\n=== Search Engine Demo ===");
-        
-        // Create indexer and search engine
-        SimpleSearchIndexer indexer = new SimpleSearchIndexer();
-        SimpleSearchEngine searchEngine = new SimpleSearchEngine(indexer);
-        
-        try {
-            // Demo 1: Index sample pages for search
-            logger.info("\n--- Demo 1: Index Sample Pages for Search ---");
-            
-            WebPage samplePage1 = new WebPage("https://example.com/java");
-            samplePage1.setTitle("Java Programming Guide");
-            samplePage1.setContent("Java is a popular programming language used for web development, Android apps, and enterprise software. Java provides object-oriented programming features and platform independence.");
-            samplePage1.setDomain("example.com");
-            
-            WebPage samplePage2 = new WebPage("https://example.com/python");
-            samplePage2.setTitle("Python Tutorial");
-            samplePage2.setContent("Python is a versatile programming language great for data science, machine learning, web development, and automation. Python has simple syntax and extensive libraries.");
-            samplePage2.setDomain("example.com");
-            
-            WebPage samplePage3 = new WebPage("https://example.com/javascript");
-            samplePage3.setTitle("JavaScript Basics");
-            samplePage3.setContent("JavaScript is the language of the web. It runs in browsers and enables interactive web pages. JavaScript is essential for modern web development.");
-            samplePage3.setDomain("example.com");
-            
-            // Index the pages
-            indexer.indexPage(samplePage1);
-            indexer.indexPage(samplePage2);
-            indexer.indexPage(samplePage3);
-            
-            logger.info("Indexed {} pages for search", indexer.getIndexSize());
-            
-            // Demo 2: Basic search functionality
-            logger.info("\n--- Demo 2: Basic Search Functionality ---");
-            
-            // Search for "programming"
-            SearchQuery query1 = new SearchQuery("programming");
-            List<SearchResult> results1 = searchEngine.search(query1);
-            logger.info("Search for 'programming': {} results", results1.size());
-            for (SearchResult result : results1) {
-                logger.info("  - {}: {} (score: {})", result.getTitle(), result.getUrl(), result.getFormattedRelevanceScore());
-            }
-            
-            // Demo 3: Advanced search queries
-            logger.info("\n--- Demo 3: Advanced Search Queries ---");
-            
-            // Exact phrase search
-            SearchQuery phraseQuery = SearchQuery.exactPhrase("web development");
-            List<SearchResult> phraseResults = searchEngine.search(phraseQuery);
-            logger.info("Exact phrase 'web development': {} results", phraseResults.size());
-            
-            // All terms search (AND)
-            SearchQuery allTermsQuery = SearchQuery.allTerms("java", "development");
-            List<SearchResult> allTermsResults = searchEngine.search(allTermsQuery);
-            logger.info("All terms 'Java' AND 'development': {} results", allTermsResults.size());
-            
-            // Any terms search (OR)
-            SearchQuery anyTermsQuery = SearchQuery.anyTerms("python", "javascript");
-            List<SearchResult> anyTermsResults = searchEngine.search(anyTermsQuery);
-            logger.info("Any terms 'Python' OR 'JavaScript': {} results", anyTermsResults.size());
-            
-            // Demo 4: Search with filters
-            logger.info("\n--- Demo 4: Search with Filters ---");
-            
-            SearchFilters filters = new SearchFilters();
-            filters.addDomain("example.com");
-            filters.setMinContentLength(100);
-            
-            SearchQuery filteredQuery = new SearchQuery("language");
-            List<SearchResult> filteredResults = searchEngine.search(filteredQuery, filters);
-            logger.info("Filtered search for 'language': {} results", filteredResults.size());
-            logger.info("Active filters: {}", filters.getFilterSummary());
-            
-            // Demo 5: Search suggestions and related terms
-            logger.info("\n--- Demo 5: Search Suggestions & Related Terms ---");
-            
-            List<String> suggestions = searchEngine.getSuggestions("prog");
-            logger.info("Search suggestions for 'prog': {}", suggestions);
-            
-            List<String> relatedTerms = searchEngine.getRelatedTerms("java", 5);
-            logger.info("Related terms for 'Java': {}", relatedTerms);
-            
-            // Demo 6: Search statistics
-            logger.info("\n--- Demo 6: Search Statistics ---");
-            
-            var searchStats = searchEngine.getSearchStats();
-            logger.info("Search statistics: {}", searchStats.getFormattedStats());
-            
-            List<String> popularTerms = searchEngine.getPopularSearchTerms(5);
-            logger.info("Popular search terms: {}", popularTerms);
-            
-            // Demo 7: Pagination
-            logger.info("\n--- Demo 7: Search Pagination ---");
-            
-            SearchQuery paginationQuery = new SearchQuery("development");
-            paginationQuery.setMaxResults(2);
-            
-            var paginatedResults = searchEngine.searchWithPagination(paginationQuery, 0, 2);
-            logger.info("Paginated results: {}", paginatedResults.getPageInfo());
-            logger.info("Navigation: {}", paginatedResults.getNavigationInfo());
-            
-            // Demo 8: Interactive search engine
-            logger.info("\n--- Demo 8: Interactive Search Engine ---");
-            interactiveSearchEngine(searchEngine);
-            
-        } catch (Exception e) {
-            logger.error("Error during search engine demo", e);
-        }
-    }
-    
-    /**
-     * Interactive search engine demo
-     */
-    private static void interactiveSearchEngine(SimpleSearchEngine searchEngine) {
-        Scanner scanner = new Scanner(System.in);
-        
-        try {
-            logger.info("Enter search query (or 'quit' to exit):");
-            String input = scanner.nextLine().trim();
-            
-            if ("quit".equalsIgnoreCase(input)) {
-                logger.info("Interactive search engine demo ended");
-                return;
-            }
-            
-            if (!input.isEmpty()) {
-                logger.info("Searching for: {}", input);
-                
-                // Create search query
-                SearchQuery query = new SearchQuery(input);
-                query.setMaxResults(5);
-                
-                // Perform search
-                List<SearchResult> results = searchEngine.search(query);
-                
-                if (results.isEmpty()) {
-                    logger.info("No results found for: {}", input);
-                    
-                    // Try to get suggestions
-                    List<String> suggestions = searchEngine.getSuggestions(input);
-                    if (!suggestions.isEmpty()) {
-                        logger.info("Try these suggestions: {}", suggestions);
-                    }
-                } else {
-                    logger.info("Found {} results:", results.size());
-                    for (int i = 0; i < results.size(); i++) {
-                        SearchResult result = results.get(i);
-                        logger.info("  {}. {} (score: {})", i + 1, result.getTitle(), result.getFormattedRelevanceScore());
-                        logger.info("     URL: {}", result.getUrl());
-                        if (result.getSnippet() != null) {
-                            logger.info("     Snippet: {}", result.getSnippet());
-                        }
-                        logger.info("     Matched terms: {}", result.getMatchedTerms());
-                    }
-                }
-            }
-            
-        } catch (Exception e) {
-            logger.error("Error during interactive search engine", e);
-        }
-    }
-    
-    /**
-     * Demonstrate the web interface functionality
-     */
-    private static void demonstrateWebInterface() {
-        logger.info("\n=== Web Interface Demo ===");
-        
-        try {
-            // Create indexer and search engine
-            SimpleSearchIndexer indexer = new SimpleSearchIndexer();
-            SimpleSearchEngine searchEngine = new SimpleSearchEngine(indexer);
-            
-            // Index some sample pages for the web interface
-            logger.info("\n--- Indexing Sample Pages for Web Interface ---");
-            
-            WebPage webPage1 = new WebPage("https://example.com/java-web");
-            webPage1.setTitle("Java Web Development Guide");
-            webPage1.setContent("Java is excellent for building web applications. Spring Boot makes it easy to create RESTful APIs and web services. Java web development is popular in enterprise environments.");
-            webPage1.setDomain("example.com");
-            
-            WebPage webPage2 = new WebPage("https://example.com/python-web");
-            webPage2.setTitle("Python Web Development");
-            webPage2.setContent("Python with Django and Flask is great for web development. FastAPI provides modern async web framework capabilities. Python web development is growing rapidly.");
-            webPage2.setDomain("example.com");
-            
-            WebPage webPage3 = new WebPage("https://example.com/javascript-web");
-            webPage3.setTitle("JavaScript Modern Web Development");
-            webPage3.setContent("JavaScript powers the modern web. React, Vue, and Angular are popular frontend frameworks. Node.js enables server-side JavaScript development.");
-            webPage3.setDomain("example.com");
-            
-            // Index the pages
-            indexer.indexPage(webPage1);
-            indexer.indexPage(webPage2);
-            indexer.indexPage(webPage3);
-            
-            logger.info("Indexed {} pages for web interface", indexer.getIndexSize());
-            
-            // Create and start web server
-            logger.info("\n--- Starting Web Server ---");
-            
-            SimpleWebServer webServer = new SimpleWebServer(8080, searchEngine);
-            webServer.start();
-            
-            logger.info("Web server started successfully!");
-            logger.info("Open your browser and go to: http://localhost:8080");
-            logger.info("Try searching for: 'web development', 'java', 'python', 'javascript'");
-            logger.info("Press Enter to stop the web server...");
-            
-            // Wait for user input to stop server
-            Scanner scanner = new Scanner(System.in);
-            scanner.nextLine();
-            
-            // Stop the web server
-            logger.info("Stopping web server...");
-            webServer.stop();
-            logger.info("Web server stopped successfully!");
-            
-        } catch (Exception e) {
-            logger.error("Error during web interface demo", e);
-        }
+        logger.info("Indexed {} sample pages", indexer.getIndexSize());
     }
 }
