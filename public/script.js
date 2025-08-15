@@ -156,15 +156,15 @@ function displayError(message) {
 // Initialize clear button state
 updateClearButton();
 
-// Duplicate suggestions for seamless infinite scrolling
+// Setup infinite scrolling for suggestions
 function setupInfiniteScroll() {
     const container = document.querySelector('.suggestions-container');
     if (container) {
-        // Clone the suggestions and append them
+        // Clone the suggestions for seamless infinite scrolling
         const clone = container.cloneNode(true);
         container.parentNode.appendChild(clone);
         
-        // Set the container width to accommodate all suggestions
+        // Ensure proper animation setup
         const totalWidth = container.scrollWidth;
         container.style.width = totalWidth + 'px';
     }

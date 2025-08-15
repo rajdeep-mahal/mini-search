@@ -124,6 +124,7 @@ header p {
     overflow: hidden;
     position: relative;
     width: 100%;
+    padding: 0 20px;
 }
 
 .suggestions-container {
@@ -132,6 +133,8 @@ header p {
     animation: scroll-suggestions 40s linear infinite;
     width: max-content;
     padding-left: 0;
+    flex-wrap: nowrap;
+    white-space: nowrap;
 }
 
 .suggestions-container:nth-child(2) {
@@ -166,12 +169,23 @@ header p {
     font-weight: 500;
     min-width: 80px;
     text-align: center;
+    flex-shrink: 0;
 }
 
 .suggestion-tag:hover {
     background: rgba(255, 255, 255, 0.2);
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Ensure only 4 suggestions are visible at a time */
+.suggestions {
+    max-width: calc(4 * (80px + 12px) + 40px); /* 4 tags + gaps + padding */
+    margin: 20px auto;
+}
+
+.suggestions-container {
+    animation-duration: 30s; /* Slower animation for better readability */
 }
 
 .results {

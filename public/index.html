@@ -15,12 +15,18 @@
             <p>Search through programming tutorials and guides</p>
         </header>
 
-        <div class="search-box">
+        <div class="search-container">
             <div class="input-container">
                 <input type="text" id="searchInput" placeholder="Search for anything..." autocomplete="off">
-                <button class="clear-btn" id="clearBtn" onclick="clearSearch()" title="Clear search">✕</button>
+                <button id="clearBtn" class="clear-btn" onclick="clearSearch()">×</button>
             </div>
-            <button class="search-btn" onclick="performSearch()">🔍 Search</button>
+            <button id="searchBtn" onclick="performSearch()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                Search
+            </button>
         </div>
 
         <div class="suggestions">
