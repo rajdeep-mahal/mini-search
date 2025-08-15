@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elasticsearch - Search Engine Technology</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .content-page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+        }
+        .back-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', monospace;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-page">
+        <a href="index.html" class="back-btn">← Back to Search</a>
+        
+        <h1>Elasticsearch - Search Engine Technology</h1>
+        
+        <p>Elasticsearch is a distributed, RESTful search and analytics engine built on Apache Lucene. It provides real-time search capabilities for all types of data, including structured, unstructured, and time-series data. Elasticsearch is commonly used for log analytics, full-text search, security analytics, and business analytics.</p>
+        
+        <h2>Key Features</h2>
+        <ul>
+            <li><strong>Distributed:</strong> Scales horizontally across multiple nodes</li>
+            <li><strong>Real-time:</strong> Near-instantaneous search results</li>
+            <li><strong>Full-text Search:</strong> Advanced text search capabilities</li>
+            <li><strong>Analytics:</strong> Built-in aggregation and analysis</li>
+            <li><strong>RESTful API:</strong> Easy integration with any application</li>
+        </ul>
+        
+        <h2>Basic Search Example</h2>
+        <div class="code-block">
+# Create an index
+PUT /products
+{
+  "mappings": {
+    "properties": {
+      "name": { "type": "text" },
+      "price": { "type": "float" },
+      "category": { "type": "keyword" }
+    }
+  }
+}
+
+# Index a document
+POST /products/_doc
+{
+  "name": "Laptop Computer",
+  "price": 999.99,
+  "category": "electronics"
+}
+
+# Search for products
+GET /products/_search
+{
+  "query": {
+    "match": {
+      "name": "laptop"
+    }
+  }
+}
+        </div>
+        
+        <h2>Advanced Search with Aggregations</h2>
+        <div class="code-block">
+GET /products/_search
+{
+  "query": {
+    "range": {
+      "price": {
+        "gte": 100,
+        "lte": 1000
+      }
+    }
+  },
+  "aggs": {
+    "categories": {
+      "terms": {
+        "field": "category"
+      }
+    },
+    "avg_price": {
+      "avg": {
+        "field": "price"
+      }
+    }
+  }
+}
+        </div>
+        
+        <h2>Getting Started</h2>
+        <p>To start with Elasticsearch:</p>
+        <ol>
+            <li>Download Elasticsearch from <a href="https://elastic.co" target="_blank">elastic.co</a></li>
+            <li>Install and start the service</li>
+            <li>Learn basic REST API operations</li>
+            <li>Explore Kibana for visualization</li>
+            <li>Build your first search application</li>
+        </ol>
+        
+        <h2>Common Use Cases</h2>
+        <ul>
+            <li><strong>E-commerce Search:</strong> Product catalog search</li>
+            <li><strong>Log Analytics:</strong> Application and system logs</li>
+            <li><strong>Security Analytics:</strong> Threat detection and monitoring</li>
+            <li><strong>Business Intelligence:</strong> Data analysis and reporting</li>
+            <li><strong>Content Management:</strong> Document and content search</li>
+        </ul>
+    </div>
+</body>
+</html>

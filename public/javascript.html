@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript - Modern Web Development</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .content-page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+        }
+        .back-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', monospace;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-page">
+        <a href="index.html" class="back-btn">← Back to Search</a>
+        
+        <h1>JavaScript - Modern Web Development</h1>
+        
+        <p>JavaScript is a programming language that is one of the core technologies of the World Wide Web, alongside HTML and CSS. It enables interactive web pages and is an essential part of web applications. Modern JavaScript includes features like ES6 modules, async/await, and modern frameworks like React, Vue, and Angular.</p>
+        
+        <h2>Key Features</h2>
+        <ul>
+            <li><strong>Dynamic Typing:</strong> Variables can hold any type of data</li>
+            <li><strong>Event-Driven:</strong> Responds to user interactions</li>
+            <li><strong>Asynchronous:</strong> Non-blocking operations with async/await</li>
+            <li><strong>Object-Oriented:</strong> Classes, inheritance, and polymorphism</li>
+            <li><strong>Functional Programming:</strong> Higher-order functions and closures</li>
+        </ul>
+        
+        <h2>Modern JavaScript Example</h2>
+        <div class="code-block">
+// ES6+ Features
+const user = {
+    name: 'John',
+    age: 30,
+    greet() {
+        return `Hello, I'm ${this.name}`;
+    }
+};
+
+// Destructuring
+const { name, age } = user;
+
+// Arrow functions
+const multiply = (a, b) => a * b;
+
+// Async/await
+async function fetchUser(id) {
+    try {
+        const response = await fetch(`/api/users/${id}`);
+        const user = await response.json();
+        return user;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+        </div>
+        
+        <h2>React Component Example</h2>
+        <div class="code-block">
+import React, { useState, useEffect } from 'react';
+
+function UserProfile({ userId }) {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetchUser(userId).then(userData => {
+            setUser(userData);
+            setLoading(false);
+        });
+    }, [userId]);
+
+    if (loading) return <div>Loading...</div>;
+    if (!user) return <div>User not found</div>;
+
+    return (
+        <div className="user-profile">
+            <h2>{user.name}</h2>
+            <p>Email: {user.email}</p>
+            <p>Age: {user.age}</p>
+        </div>
+    );
+}
+        </div>
+        
+        <h2>Getting Started</h2>
+        <p>To start with JavaScript:</p>
+        <ol>
+            <li>Learn basic syntax and concepts</li>
+            <li>Practice with browser console</li>
+            <li>Build simple web applications</li>
+            <li>Learn a modern framework (React, Vue, Angular)</li>
+            <li>Explore Node.js for backend development</li>
+        </ol>
+        
+        <h2>Popular JavaScript Frameworks</h2>
+        <ul>
+            <li><strong>React:</strong> Facebook's UI library</li>
+            <li><strong>Vue.js:</strong> Progressive framework</li>
+            <li><strong>Angular:</strong> Google's full-featured framework</li>
+            <li><strong>Node.js:</strong> Server-side JavaScript runtime</li>
+            <li><strong>Express.js:</strong> Web application framework</li>
+        </ul>
+    </div>
+</body>
+</html>

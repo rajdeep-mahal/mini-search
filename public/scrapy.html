@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrapy - Web Scraping Framework</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .content-page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+        }
+        .back-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', monospace;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-page">
+        <a href="index.html" class="back-btn">← Back to Search</a>
+        
+        <h1>Scrapy - Web Scraping Framework</h1>
+        
+        <p>Scrapy is a fast high-level web crawling and web scraping framework for Python. It is used to crawl websites and extract structured data from their pages. Scrapy provides built-in support for extracting data from HTML/XML sources using CSS selectors and XPath expressions. It includes features like automatic throttling, user agent rotation, and export feeds in various formats like JSON, CSV, and XML.</p>
+        
+        <h2>Key Features</h2>
+        <ul>
+            <li><strong>Fast Performance:</strong> Built on Twisted asynchronous networking</li>
+            <li><strong>CSS Selectors:</strong> Easy data extraction with CSS and XPath</li>
+            <li><strong>Built-in Pipeline:</strong> Data processing and storage</li>
+            <li><strong>Export Formats:</strong> JSON, CSV, XML, and more</li>
+            <li><strong>Robust Error Handling:</strong> Automatic retry and error recovery</li>
+        </ul>
+        
+        <h2>Basic Spider Example</h2>
+        <div class="code-block">
+import scrapy
+
+class QuotesSpider(scrapy.Spider):
+    name = 'quotes'
+    start_urls = ['http://quotes.toscrape.com']
+    
+    def parse(self, response):
+        quotes = response.css('div.quote')
+        
+        for quote in quotes:
+            yield {
+                'text': quote.css('span.text::text').get(),
+                'author': quote.css('small.author::text').get(),
+                'tags': quote.css('div.tags a.tag::text').getall()
+            }
+        
+        # Follow next page
+        next_page = response.css('li.next a::attr(href)').get()
+        if next_page:
+            yield response.follow(next_page, self.parse)
+        </div>
+        
+        <h2>Data Pipeline Example</h2>
+        <div class="code-block">
+class JsonWriterPipeline:
+    def open_spider(self, spider):
+        self.file = open('quotes.json', 'w')
+    
+    def close_spider(self, spider):
+        self.file.close()
+    
+    def process_item(self, item, spider):
+        line = json.dumps(dict(item)) + "\n"
+        self.file.write(line)
+        return item
+
+# Enable pipeline in settings.py
+ITEM_PIPELINES = {
+    'myproject.pipelines.JsonWriterPipeline': 300,
+}
+        </div>
+        
+        <h2>Getting Started</h2>
+        <p>To start with Scrapy:</p>
+        <ol>
+            <li>Install Scrapy: <code>pip install scrapy</code></li>
+            <li>Create a new project: <code>scrapy startproject myproject</code></li>
+            <li>Generate a spider: <code>scrapy genspider example example.com</code></li>
+            <li>Write your spider logic</li>
+            <li>Run the spider: <code>scrapy crawl example</code></li>
+        </ol>
+        
+        <h2>Common Use Cases</h2>
+        <ul>
+            <li><strong>E-commerce:</strong> Product price monitoring</li>
+            <li><strong>News Aggregation:</strong> Collecting articles from multiple sources</li>
+            <li><strong>Data Mining:</strong> Research and analysis</li>
+            <li><strong>Competitive Intelligence:</strong> Market research</li>
+            <li><strong>Content Migration:</strong> Moving data between systems</li>
+        </ul>
+        
+        <h2>Best Practices</h2>
+        <ul>
+            <li>Respect robots.txt and website terms</li>
+            <li>Use appropriate delays between requests</li>
+            <li>Implement proper error handling</li>
+            <li>Store data efficiently</li>
+            <li>Monitor and log your scraping activities</li>
+        </ul>
+    </div>
+</body>
+</html>

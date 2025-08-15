@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Programming - Web Development & Data Science</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .content-page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+        }
+        .back-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', monospace;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-page">
+        <a href="index.html" class="back-btn">← Back to Search</a>
+        
+        <h1>Python Programming - Web Development & Data Science</h1>
+        
+        <p>Python is a high-level, interpreted programming language known for its simplicity and readability. It is widely used in web development with frameworks like Django and Flask, data science with libraries like Pandas and NumPy, machine learning with scikit-learn and TensorFlow, and automation.</p>
+        
+        <h2>Key Features</h2>
+        <ul>
+            <li><strong>Simple Syntax:</strong> Easy to read and write</li>
+            <li><strong>Extensive Libraries:</strong> Rich ecosystem of packages</li>
+            <li><strong>Cross-platform:</strong> Runs on Windows, macOS, and Linux</li>
+            <li><strong>Web Frameworks:</strong> Django, Flask, FastAPI</li>
+            <li><strong>Data Science:</strong> Pandas, NumPy, Matplotlib</li>
+        </ul>
+        
+        <h2>Web Development with Flask</h2>
+        <div class="code-block">
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route('/')
+def hello():
+    return 'Hello, World!'
+
+@app.route('/user/<username>')
+def show_user(username):
+    return f'Hello, {username}!'
+
+if __name__ == '__main__':
+    app.run(debug=True)
+        </div>
+        
+        <h2>Data Science Example</h2>
+        <div class="code-block">
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load data
+data = pd.read_csv('data.csv')
+
+# Analyze data
+print(data.describe())
+
+# Create visualization
+plt.plot(data['x'], data['y'])
+plt.title('Data Visualization')
+plt.show()
+        </div>
+        
+        <h2>Getting Started</h2>
+        <p>To start with Python:</p>
+        <ol>
+            <li>Download Python from <a href="https://python.org" target="_blank">python.org</a></li>
+            <li>Install a code editor like VS Code or PyCharm</li>
+            <li>Learn basic syntax and concepts</li>
+            <li>Choose a specialization (web, data science, etc.)</li>
+        </ol>
+        
+        <h2>Popular Python Frameworks</h2>
+        <ul>
+            <li><strong>Django:</strong> Full-featured web framework</li>
+            <li><strong>Flask:</strong> Lightweight web framework</li>
+            <li><strong>FastAPI:</strong> Modern API framework</li>
+            <li><strong>Pandas:</strong> Data manipulation library</li>
+            <li><strong>NumPy:</strong> Numerical computing library</li>
+        </ul>
+    </div>
+</body>
+</html>

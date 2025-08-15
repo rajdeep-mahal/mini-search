@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Framework - Java Web Development</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .content-page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+        }
+        .back-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', monospace;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-page">
+        <a href="index.html" class="back-btn">← Back to Search</a>
+        
+        <h1>Spring Framework - Java Web Development</h1>
+        
+        <p>Spring Framework is a comprehensive framework for building Java applications. It provides infrastructure support for developing Java applications and includes features like dependency injection, aspect-oriented programming, and data access.</p>
+        
+        <h2>Key Features</h2>
+        <ul>
+            <li><strong>Dependency Injection:</strong> Manages object dependencies automatically</li>
+            <li><strong>Aspect-Oriented Programming:</strong> Separates cross-cutting concerns</li>
+            <li><strong>Data Access:</strong> Simplifies database operations</li>
+            <li><strong>Web Development:</strong> Built-in support for web applications</li>
+            <li><strong>Security:</strong> Comprehensive security framework</li>
+        </ul>
+        
+        <h2>Spring Boot Example</h2>
+        <div class="code-block">
+@SpringBootApplication
+public class DemoApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
+}
+
+@RestController
+public class HelloController {
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello, Spring Boot!";
+    }
+}
+        </div>
+        
+        <h2>Getting Started</h2>
+        <p>To start with Spring Framework:</p>
+        <ol>
+            <li>Visit <a href="https://spring.io/guides" target="_blank">spring.io/guides</a></li>
+            <li>Choose a guide based on your needs</li>
+            <li>Follow the step-by-step instructions</li>
+            <li>Build your first Spring application</li>
+        </ol>
+        
+        <h2>Why Spring?</h2>
+        <p>Spring Framework makes Java development easier by providing:</p>
+        <ul>
+            <li>Simplified configuration</li>
+            <li>Built-in testing support</li>
+            <li>Extensive ecosystem</li>
+            <li>Enterprise-ready features</li>
+            <li>Active community support</li>
+        </ul>
+    </div>
+</body>
+</html>
